@@ -23,11 +23,24 @@ let mobiles = [
 ];
 
 export const getMobiles = ({response}) => response.body = mobiles;
+export const getMobile = ({params , response}) => {
+    const mobile = mobiles.filter((mobile) => mobile.name === params.name);
+    if(mobile.length){
+        response.status = 200;
+        response.body = mobile[0];
+        return;
+    }
+response.status = 400;
+response.body = {
+    msg: "null"
+};
+
+}
 
 const router = new Router();
 router
-.get('/mobile', getMobiles);
-// .get('/mobile/:name', getMobile)
+.get('/mobile', getMobiles)
+.get('/mobile/:name', getMobile);
 // .post('/mobile', addMobile)
 // .put('/mobile/:name', updateMobile)
 // .delete('/mobile/:name', removeMobile)
